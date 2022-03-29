@@ -1,0 +1,152 @@
+############
+#####  *. ##
+###   #$#. #
+##   .$@$. #
+##.* $ #   #
+##.#$$  #  #
+#    ##$####
+####### ####
+#####  .####
+############
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+###########
+####.$ ####
+#### # ####
+###.*  ####
+#  #$# # ##
+#    $.*. #
+#   ## # ##
+###$   ####
+###@# #####
+###########
+length 61 soln is ['u', 'r', 'r', 'r', 'u', 'u', 'r', 'l', 'l', 'l', 'l', 'r', 'r', 'r', 'd', 'd', 'l', 'l', 'l', 'u', 'l', 'l', 'u', 'u', 'r', 'd', 'l', 'd', 'r', 'u', 'r', 'r', 'r', 'r', 'u', 'u', 'l', 'l', 'r', 'r', 'u', 'u', 'l', 'r', 'd', 'd', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'u', 'l', 'u', 'r', 'r', 'r', 'l', 'u']
+Time consumed: 10.528 seconds using ucs and exploring 155696 states
+61 moves
+urrru urlll lrrrd dlllu lluur dldru rrrru ullrr uulrd ddddd lllul urrrl u
+##########
+###@$.. ##
+###$#.$  #
+# .*  #  #
+### # $  #
+### # $# #
+##### .$.#
+#######  #
+#######  #
+##########
+length 47 soln is ['r', 'r', 'd', 'd', 'l', 'l', 'r', 'r', 'u', 'u', 'l', 'l', 'd', 'u', 'r', 'r', 'd', 'd', 'd', 'd', 'd', 'r', 'r', 'd', 'r', 'u', 'u', 'u', 'l', 'l', 'd', 'l', 'u', 'u', 'u', 'd', 'd', 'r', 'r', 'u', 'u', 'l', 'r', 'r', 'd', 'd', 'd']
+Time consumed: 154.800 seconds using ucs and exploring 1549272 states
+47 moves
+rrddl lrruu lldur rdddd drrdr uuull dluuu ddrru ulrrd dd
+#########
+#  ###  #
+## #### #
+#      .#
+## $#$# #
+##  $.. #
+#@$ #* ##
+###  .  #
+####    #
+####### #
+#########
+length 34 soln is ['r', 'u', 'r', 'r', 'r', 'd', 'r', 'd', 'd', 'l', 'l', 'u', 'l', 'u', 'l', 'u', 'r', 'u', 'l', 'u', 'r', 'r', 'r', 'd', 'd', 'u', 'u', 'r', 'l', 'l', 'l', 'd', 'd', 'r']
+Time consumed: 13.799 seconds using ucs and exploring 176040 states
+34 moves
+rurrr drddl lulul urulu rrrdd uurll lddr
+########
+#.# ####
+# # ####
+# # ####
+# # ####
+#   ####
+#.   $@#
+# #$$###
+#  .  ##
+## .$  #
+##  # ##
+########
+length 55 soln is ['l', 'l', 'l', 'l', 'r', 'd', 'd', 'l', 'd', 'd', 'r', 'u', 'u', 'r', 'r', 'd', 'l', 'u', 'l', 'l', 'l', 'u', 'u', 'u', 'r', 'r', 'd', 'r', 'd', 'd', 'l', 'u', 'd', 'l', 'd', 'd', 'r', 'u', 'u', 'r', 'r', 'd', 'l', 'u', 'u', 'u', 'l', 'd', 'u', 'l', 'u', 'l', 'u', 'u', 'u']
+Time consumed: 67.086 seconds using ucs and exploring 714043 states
+55 moves
+llllr ddldd ruurr dlull luuur rdrdd ludld druur rdluu uldul uluuu
+##########
+#    #####
+# # #  ###
+# $.   ###
+### $#$###
+###  *.  #
+###  #   #
+## #   # #
+## # @   #
+##  .#####
+##########
+length 32 soln is ['u', 'l', 'u', 'u', 'l', 'u', 'u', 'r', 'd', 'd', 'd', 'd', 'd', 'u', 'u', 'u', 'u', 'u', 'r', 'r', 'd', 'u', 'l', 'l', 'l', 'u', 'u', 'l', 'l', 'd', 'd', 'r']
+Time consumed: 5.397 seconds using ucs and exploring 73806 states
+32 moves
+uluul uurdd ddduu uuurr dulll uulld dr
+########
+#.  @ ##
+# #$$ ##
+#.* .. #
+##$#$ ##
+#     ##
+###$#  #
+#..$  ##
+#  ## ##
+########
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+##########
+######  ##
+##     ###
+# .##  ###
+#   $. # #
+#   #    #
+# #$$*####
+#.  # @ ##
+##########
+length 49 soln is ['l', 'u', 'u', 'u', 'l', 'l', 'l', 'd', 'l', 'd', 'd', 'r', 'r', 'u', 'r', 'l', 'u', 'l', 'u', 'u', 'l', 'd', 'd', 'd', 'u', 'u', 'u', 'r', 'u', 'r', 'r', 'r', 'r', 'd', 'd', 'l', 'l', 'l', 'd', 'l', 'u', 'r', 'r', 'r', 'r', 'u', 'u', 'l', 'd']
+Time consumed: 15.643 seconds using ucs and exploring 223466 states
+49 moves
+luuul lldld drrur luluu ldddu uurur rrrdd llldl urrrr uuld
+##########
+###.. # ##
+####  *.##
+####$#$###
+####   .##
+###   #  #
+#@  #$#  #
+### $.  ##
+##  # $ ##
+###   # ##
+######  ##
+##########
+length 65 soln is ['r', 'r', 'u', 'r', 'u', 'u', 'u', 'r', 'r', 'l', 'u', 'l', 'd', 'd', 'd', 'r', 'r', 'r', 'd', 'd', 'd', 'd', 'l', 'u', 'l', 'u', 'u', 'd', 'd', 'r', 'r', 'u', 'u', 'u', 'l', 'u', 'd', 'l', 'd', 'l', 'u', 'u', 'u', 'd', 'd', 'd', 'l', 'd', 'd', 'r', 'r', 'r', 'l', 'l', 'l', 'd', 'd', 'r', 'r', 'u', 'r', 'r', 'u', 'u', 'u']
+Time consumed: 58.235 seconds using ucs and exploring 694559 states
+65 moves
+rruru uurrl ulddd rrrdd ddlul uuddr ruuul udldl uuudd dlddr rrlll ddrru rruuu
+Starting level 10_8_2022319_155042
+Starting level 10_8_2022319_163720
+Starting level 10_8_2022319_164526
+Starting level 10_9_2022319_15150
+Starting level 8_10_2022319_153352
+Starting level 8_10_2022319_15928
+Starting level 8_9_2022319_152421
+Starting level 9_10_2022319_154338
+Starting level 9_10_2022319_162331
+Starting level 9_9_2022319_1650
+###########
+######.#  #
+###### $..#
+######.#$##
+####.#*$ ##
+##  .$@#  #
+## # #$#  #
+#  $. $ * #
+# ##  #   #
+###########
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+
+
+OVERALL RESULT: 7 levels solved out of 10 (70.0)% using 325.487124 seconds

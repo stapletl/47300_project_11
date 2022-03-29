@@ -1,0 +1,7 @@
+    Algorithm fa2 -d gives OVERALL RESULT: 9 levels solved out of 10 (90.0)% using 19.700 seconds
+    Algorithm a2 -d gives OVERALL RESULT: 9 levels solved out of 10 (90.0)% using 92.156 seconds
+    Algorithm fa -d gives OVERALL RESULT: 9 levels solved out of 10 (90.0)% using 27.127 seconds
+    Algorithm f -d gives OVERALL RESULT: 9 levels solved out of 10 (90.0)% using 98.109 seconds
+    Algorithm ucs -d gives OVERALL RESULT: 9 levels solved out of 10 (90.0)% using 110.157 seconds
+    Algorithm ucs  gives OVERALL RESULT: 7 levels solved out of 10 (70.0)% using 538.188 seconds
+

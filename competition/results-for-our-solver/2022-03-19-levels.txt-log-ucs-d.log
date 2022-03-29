@@ -1,0 +1,176 @@
+############
+#####  *. ##
+###   #$#. #
+##   .$@$. #
+##.* $ #   #
+##.#$$  #  #
+#    ##$####
+####### ####
+#####  .####
+############
+Dead end detection on for solution of level 10_8_2022319_155042
+(1,5) (1,9) (2,3) (2,10) (3,2) (3,10) (4,8) (4,10) (5,7) (5,9) (5,10) (6,1) (6,2) (6,3) (6,4) (8,5)
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+###########
+####.$ ####
+#### # ####
+###.*  ####
+#  #$# # ##
+#    $.*. #
+#   ## # ##
+###$   ####
+###@# #####
+###########
+Dead end detection on for solution of level 10_8_2022319_163720
+(1,6) (4,1) (4,2) (4,8) (5,1) (5,9) (6,1) (6,8) (7,6) (8,3) (8,5)
+length 61 soln is ['u', 'r', 'r', 'r', 'u', 'u', 'r', 'l', 'l', 'l', 'l', 'r', 'r', 'r', 'd', 'd', 'l', 'l', 'l', 'u', 'l', 'l', 'u', 'u', 'r', 'd', 'l', 'd', 'r', 'u', 'r', 'r', 'r', 'r', 'u', 'u', 'l', 'l', 'r', 'r', 'u', 'u', 'l', 'r', 'd', 'd', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'u', 'l', 'u', 'r', 'r', 'r', 'l', 'u']
+Time consumed: 1.049 seconds using ucs and exploring 13171 states
+61 moves
+urrru urlll lrrrd dlllu lluur dldru rrrru ullrr uulrd ddddd lllul urrrl u
+##########
+###@$.. ##
+###$#.$  #
+# .*  #  #
+### # $  #
+### # $# #
+##### .$.#
+#######  #
+#######  #
+##########
+Dead end detection on for solution of level 10_8_2022319_164526
+(1,3) (1,7) (2,8) (3,1) (5,3) (6,5) (8,7) (8,8)
+length 47 soln is ['r', 'r', 'd', 'd', 'l', 'l', 'r', 'r', 'u', 'u', 'l', 'l', 'd', 'u', 'r', 'r', 'd', 'd', 'd', 'd', 'd', 'r', 'r', 'd', 'r', 'u', 'u', 'u', 'l', 'l', 'd', 'l', 'u', 'u', 'u', 'd', 'd', 'r', 'r', 'u', 'u', 'l', 'r', 'r', 'd', 'd', 'd']
+Time consumed: 10.012 seconds using ucs and exploring 134041 states
+47 moves
+rrddl lrruu lldur rdddd drrdr uuull dluuu ddrru ulrrd dd
+#########
+#  ###  #
+## #### #
+#      .#
+## $#$# #
+##  $.. #
+#@$ #* ##
+###  .  #
+####    #
+####### #
+#########
+Dead end detection on for solution of level 10_9_2022319_15150
+(1,1) (1,2) (1,6) (1,7) (3,1) (5,7) (6,1) (7,3) (7,7) (8,4) (8,7) (9,7)
+length 34 soln is ['r', 'u', 'r', 'r', 'r', 'd', 'r', 'd', 'd', 'l', 'l', 'u', 'l', 'u', 'l', 'u', 'r', 'u', 'l', 'u', 'r', 'r', 'r', 'd', 'd', 'u', 'u', 'r', 'l', 'l', 'l', 'd', 'd', 'r']
+Time consumed: 3.126 seconds using ucs and exploring 45621 states
+34 moves
+rurrr drddl lulul urulu rrrdd uurll lddr
+########
+#.# ####
+# # ####
+# # ####
+# # ####
+#   ####
+#.   $@#
+# #$$###
+#  .  ##
+## .$  #
+##  # ##
+########
+Dead end detection on for solution of level 8_10_2022319_153352
+(1,3) (6,6) (8,1) (8,5) (9,6) (10,2) (10,3) (10,5)
+length 55 soln is ['l', 'l', 'l', 'l', 'r', 'd', 'd', 'l', 'd', 'd', 'r', 'u', 'u', 'r', 'r', 'd', 'l', 'u', 'l', 'l', 'l', 'u', 'u', 'u', 'r', 'r', 'd', 'r', 'd', 'd', 'l', 'u', 'd', 'l', 'd', 'd', 'r', 'u', 'u', 'r', 'r', 'd', 'l', 'u', 'u', 'u', 'l', 'd', 'u', 'l', 'u', 'l', 'u', 'u', 'u']
+Time consumed: 12.149 seconds using ucs and exploring 164976 states
+55 moves
+llllr ddldd ruurr dlull luuur rdrdd ludld druur rdluu uldul uluuu
+##########
+#    #####
+# # #  ###
+# $.   ###
+### $#$###
+###  *.  #
+###  #   #
+## #   # #
+## # @   #
+##  .#####
+##########
+Dead end detection on for solution of level 8_10_2022319_15928
+(1,1) (1,2) (1,3) (1,4) (2,1) (2,5) (2,6) (3,1) (5,8) (6,3) (6,8) (7,2) (7,8) (8,2) (8,8) (9,2)
+length 32 soln is ['u', 'l', 'u', 'u', 'l', 'u', 'u', 'r', 'd', 'd', 'd', 'd', 'd', 'u', 'u', 'u', 'u', 'u', 'r', 'r', 'd', 'u', 'l', 'l', 'l', 'u', 'u', 'l', 'l', 'd', 'd', 'r']
+Time consumed: 1.783 seconds using ucs and exploring 23589 states
+32 moves
+uluul uurdd ddduu uuurr dulll uulld dr
+########
+#.  @ ##
+# #$$ ##
+#.* .. #
+##$#$ ##
+#     ##
+###$#  #
+#..$  ##
+#  ## ##
+########
+Dead end detection on for solution of level 8_9_2022319_152421
+(1,5) (3,6) (5,1) (6,6) (8,1) (8,2) (8,5)
+length 54 soln is ['r', 'd', 'd', 'l', 'l', 'l', 'r', 'u', 'd', 'r', 'r', 'd', 'd', 'd', 'd', 'l', 'l', 'l', 'r', 'r', 'r', 'u', 'u', 'l', 'l', 'd', 'u', 'r', 'r', 'd', 'd', 'l', 'l', 'u', 'u', 'l', 'u', 'd', 'r', 'r', 'u', 'r', 'u', 'u', 'u', 'l', 'l', 'l', 'r', 'd', 'r', 'u', 'r', 'd']
+Time consumed: 69.671 seconds using ucs and exploring 723483 states
+54 moves
+rddll lrudr rdddd lllrr ruull durrd dlluu ludrr uruuu lllrd rurd
+##########
+######  ##
+##     ###
+# .##  ###
+#   $. # #
+#   #    #
+# #$$*####
+#.  # @ ##
+##########
+Dead end detection on for solution of level 9_10_2022319_154338
+(1,6) (1,7) (2,2) (3,1) (4,8) (5,8) (7,3) (7,5) (7,6) (7,7)
+length 49 soln is ['l', 'u', 'u', 'u', 'l', 'l', 'l', 'd', 'l', 'd', 'd', 'r', 'r', 'u', 'r', 'l', 'u', 'l', 'u', 'u', 'l', 'd', 'd', 'd', 'u', 'u', 'u', 'r', 'u', 'r', 'r', 'r', 'r', 'd', 'd', 'l', 'l', 'l', 'd', 'l', 'u', 'r', 'r', 'r', 'r', 'u', 'u', 'l', 'd']
+Time consumed: 5.326 seconds using ucs and exploring 74159 states
+49 moves
+luuul lldld drrur luluu ldddu uurur rrrdd llldl urrrr uuld
+##########
+###.. # ##
+####  *.##
+####$#$###
+####   .##
+###   #  #
+#@  #$#  #
+### $.  ##
+##  # $ ##
+###   # ##
+######  ##
+##########
+Dead end detection on for solution of level 9_10_2022319_162331
+(1,5) (1,7) (5,3) (5,8) (6,1) (6,8) (8,2) (9,3) (9,4) (9,5) (10,6) (10,7)
+length 65 soln is ['r', 'r', 'u', 'r', 'u', 'u', 'u', 'r', 'r', 'l', 'u', 'l', 'd', 'd', 'd', 'r', 'r', 'r', 'd', 'd', 'd', 'd', 'l', 'u', 'l', 'u', 'u', 'd', 'd', 'r', 'r', 'u', 'u', 'u', 'l', 'u', 'd', 'l', 'd', 'l', 'u', 'u', 'u', 'd', 'd', 'd', 'l', 'd', 'd', 'r', 'r', 'r', 'l', 'l', 'l', 'd', 'd', 'r', 'r', 'u', 'r', 'r', 'u', 'u', 'u']
+Time consumed: 31.651 seconds using ucs and exploring 363160 states
+65 moves
+rruru uurrl ulddd rrrdd ddlul uuddr ruuul udldl uuudd dlddr rrlll ddrru rruuu
+Starting level 10_8_2022319_155042
+Starting level 10_8_2022319_163720
+Starting level 10_8_2022319_164526
+Starting level 10_9_2022319_15150
+Starting level 8_10_2022319_153352
+Starting level 8_10_2022319_15928
+Starting level 8_9_2022319_152421
+Starting level 9_10_2022319_154338
+Starting level 9_10_2022319_162331
+Starting level 9_9_2022319_1650
+###########
+######.#  #
+###### $..#
+######.#$##
+####.#*$ ##
+##  .$@#  #
+## # #$#  #
+#  $. $ * #
+# ##  #   #
+###########
+Dead end detection on for solution of level 9_9_2022319_1650
+(1,8) (1,9) (5,2) (5,9) (6,9) (7,1) (7,9) (8,1) (8,4) (8,5) (8,7) (8,8) (8,9)
+length 80 soln is ['u', 'u', 'u', 'r', 'r', 'd', 'd', 'd', 'r', 'd', 'd', 'd', 'l', 'l', 'u', 'l', 'u', 'u', 'u', 'r', 'l', 'd', 'd', 'd', 'l', 'd', 'l', 'u', 'u', 'u', 'r', 'l', 'd', 'd', 'r', 'r', 'u', 'u', 'l', 'l', 'l', 'l', 'd', 'd', 'r', 'r', 'u', 'u', 'r', 'r', 'd', 'd', 'l', 'd', 'l', 'u', 'u', 'd', 'r', 'r', 'r', 'd', 'r', 'r', 'u', 'l', 'l', 'l', 'l', 'r', 'r', 'r', 'r', 'u', 'u', 'l', 'd', 'u', 'u', 'u']
+Time consumed: 55.312 seconds using ucs and exploring 578121 states
+80 moves
+uuurr dddrd ddllu luuur ldddl dluuu rlddr ruull llddr ruurr ddldl uudrr rdrru llllr rrruu lduuu
+
+
+OVERALL RESULT: 9 levels solved out of 10 (90.0)% using 190.07983700000003 seconds

@@ -1,0 +1,155 @@
+##########
+######## #
+##### ## #
+####.  # #
+####$# $.#
+###    ###
+####$$.. #
+###  #  ##
+#@$  .  ##
+####     #
+##########
+length 27 soln is ['r', 'r', 'r', 'r', 'r', 'd', 'r', 'u', 'u', 'l', 'u', 'u', 'u', 'r', 'l', 'd', 'l', 'l', 'u', 'd', 'd', 'r', 'l', 'd', 'l', 'd', 'r']
+Time consumed: 6.828 seconds using ucs and exploring 65057 states
+27 moves
+rrrrr druul uuurl dllud drldl dr
+##########
+###  # ###
+####.*   #
+##  #$$# #
+#  .   $+#
+# #  #$# #
+#   #   .#
+###. #$ ##
+### ##  ##
+###### ###
+##########
+length 95 soln is ['l', 'l', 'l', 'l', 'l', 'd', 'd', 'l', 'l', 'u', 'u', 'r', 'u', 'r', 'd', 'd', 'd', 'u', 'u', 'r', 'r', 'r', 'r', 'r', 'd', 'd', 'l', 'l', 'u', 'd', 'r', 'r', 'u', 'u', 'u', 'u', 'l', 'l', 'l', 'r', 'r', 'r', 'd', 'd', 'l', 'l', 'l', 'l', 'r', 'u', 'd', 'r', 'r', 'r', 'u', 'u', 'l', 'l', 'd', 'l', 'd', 'r', 'r', 'l', 'u', 'u', 'r', 'r', 'd', 'd', 'd', 'u', 'l', 'l', 'd', 'd', 'r', 'd', 'd', 'l', 'u', 'u', 'u', 'u', 'r', 'r', 'u', 'u', 'l', 'l', 'd', 'l', 'd', 'r', 'r']
+Time consumed: 222.402 seconds using ucs and exploring 2213022 states
+95 moves
+lllll ddllu ururd dduur rrrrd dllud rruuu ulllr rrddl lllru drrru ulldl drrlu urrdd dulld drddl uuuur ruull dldrr
+###########
+#####  ####
+#####  ####
+##@$  .*. #
+# $#$# ## #
+#  $ #$## #
+# #$.   ###
+#. ..##   #
+#### ######
+###########
+length 47 soln is ['r', 'r', 'd', 'd', 'd', 'u', 'l', 'l', 'r', 'r', 'u', 'u', 'l', 'l', 'd', 'l', 'd', 'd', 'u', 'r', 'r', 'd', 'r', 'r', 'r', 'u', 'u', 'u', 'r', 'l', 'l', 'l', 'd', 'd', 'l', 'l', 'u', 'u', 'r', 'r', 'r', 'r', 'l', 'u', 'u', 'r', 'd']
+Time consumed: 36.283 seconds using ucs and exploring 444327 states
+47 moves
+rrddd ullrr uulld lddur rdrrr uuurl llddl luurr rrluu rd
+########
+#.  $+##
+#.$ #$##
+### $..#
+#.$ ## #
+##$.$..#
+#   #$##
+# $   ##
+#  # ###
+########
+length 67 soln is ['l', 'l', 'd', 'd', 'r', 'r', 'l', 'l', 'u', 'u', 'r', 'r', 'd', 'u', 'l', 'l', 'l', 'r', 'd', 'd', 'd', 'd', 'd', 'l', 'l', 'd', 'd', 'r', 'u', 'l', 'u', 'r', 'd', 'r', 'u', 'u', 'r', 'r', 'l', 'l', 'u', 'u', 'u', 'l', 'u', 'r', 'r', 'l', 'd', 'd', 'd', 'l', 'd', 'r', 'd', 'd', 'l', 'l', 'u', 'r', 'd', 'r', 'u', 'd', 'r', 'r', 'u']
+Time consumed: 33.750 seconds using ucs and exploring 386954 states
+67 moves
+llddr rlluu rrdul llrdd dddll ddrul urdru urrll uuulu rrldd dldrd dllur drudr ru
+###########
+#### ######
+##  . . ###
+##$#$#..###
+#..$     ##
+# $##  . ##
+#@  #$#  ##
+##$#      #
+##    $####
+###    ####
+###########
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+##########
+#####  ###
+## $   ###
+## # .   #
+#  ##$#$##
+##    $..#
+##  $## ##
+#  #.##+ #
+## # #####
+##########
+length 51 soln is ['u', 'u', 'l', 'l', 'l', 'd', 'l', 'l', 'u', 'r', 'r', 'r', 'r', 'r', 'l', 'l', 'l', 'l', 'l', 'u', 'u', 'u', 'r', 'r', 'd', 'r', 'd', 'u', 'r', 'u', 'u', 'l', 'd', 'r', 'd', 'r', 'd', 'd', 'd', 'u', 'l', 'l', 'l', 'd', 'l', 'l', 'u', 'r', 'r', 'r', 'r']
+Time consumed: 26.217 seconds using ucs and exploring 354655 states
+51 moves
+uulll dllur rrrrl llllu uurrd rduru uldrd rdddu llldl lurrr r
+###########
+##   #   ##
+## #  ..###
+####  #$  #
+##### $.. #
+# . $ # ###
+##  # $   #
+### $.$ # #
+#####*#####
+##### @####
+###### ####
+###########
+length 44 soln is ['l', 'u', 'u', 'u', 'u', 'u', 'r', 'r', 'd', 'd', 'd', 'l', 'r', 'u', 'u', 'u', 'u', 'd', 'l', 'l', 'u', 'l', 'u', 'r', 'd', 'd', 'd', 'd', 'd', 'u', 'r', 'd', 'r', 'u', 'u', 'd', 'l', 'l', 'u', 'l', 'l', 'd', 'd', 'r']
+Time consumed: 172.671 seconds using ucs and exploring 1806955 states
+44 moves
+luuuu urrdd dlruu uudll ulurd ddddu rdruu dllul lddr
+##########
+###### ###
+###### ###
+###    ###
+# $ #$ ###
+# #$ . ###
+# *+*$####
+# $## ## #
+#    .   #
+#####.####
+#####.####
+##########
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+##########
+###@######
+## *######
+###   # ##
+##  ##   #
+#  .$  # #
+#   #$.$ #
+##   ... #
+#### $#$##
+##      ##
+##########
+TIMEOUT!
+Time limit (300 seconds) exceeded.
+Starting level 10_10_2022325_17855
+Starting level 10_11_2022325_16543
+Starting level 10_9_2022325_153536
+Starting level 11_10_2022325_155031
+Starting level 11_11_2022325_16101
+Starting level 11_11_2022325_16232
+Starting level 9_10_2022325_182410
+Starting level 9_11_2022325_152132
+Starting level 9_11_2022325_164048
+Starting level 9_9_2022325_18935
+##########
+#.     @##
+# ##$#$  #
+# #..$  ##
+# ..$ $###
+# # #   ##
+#####   ##
+#######  #
+####### ##
+##########
+length 39 soln is ['d', 'd', 'l', 'd', 'l', 'l', 'l', 'r', 'r', 'd', 'd', 'r', 'r', 'u', 'l', 'd', 'l', 'u', 'r', 'u', 'l', 'l', 'r', 'r', 'u', 'l', 'l', 'r', 'r', 'u', 'r', 'u', 'l', 'l', 'l', 'd', 'u', 'l', 'l']
+Time consumed: 40.038 seconds using ucs and exploring 509970 states
+39 moves
+ddldl llrrd drrul dluru llrru llrru rulll dull
+
+
+OVERALL RESULT: 7 levels solved out of 10 (70.0)% using 538.1884769999999 seconds
