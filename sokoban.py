@@ -1,8 +1,14 @@
+from copy import deepcopy
 import util
-import os, sys
-import datetime, time
+import os
+import sys
+import datetime
+import time
 import argparse
-import signal, gc
+import signal
+import gc
+
+from itertools import combinations
 
 class SokobanState:
     # player: 2-tuple representing player location (coordinates)
@@ -15,34 +21,62 @@ class SokobanState:
         self.adj = {}
         self.dead = None
         self.solved = None
+
     def __str__(self):
         return 'player: ' + str(self.player()) + ' boxes: ' + str(self.boxes())
+
     def __eq__(self, other):
         return type(self) == type(other) and self.data == other.data
+
     def __lt__(self, other):
         return self.data < other.data
+
     def __hash__(self):
         return hash(self.data)
     # return player location
+
     def player(self):
         return self.data[0]
     # return boxes locations
+
     def boxes(self):
         return self.data[1:]
+
     def is_goal(self, problem):
         if self.solved is None:
-            self.solved = all(problem.map[b[0]][b[1]].target for b in self.boxes())
+            self.solved = all(
+                problem.map[b[0]][b[1]].target for b in self.boxes())
         return self.solved
+
     def act(self, problem, act):
-        if act in self.adj: return self.adj[act]
+        if act in self.adj:
+            return self.adj[act]
         else:
-            val = problem.valid_move(self,act)
+            val = problem.valid_move(self, act)
             self.adj[act] = val
             return val
+
     def deadp(self, problem):
-        if self.dead is None:
-            raise NotImplementedError('Override me')
+        boxes = self.boxes()
+
+        for box in boxes:
+            wallInfo = {}
+
+            for move in 'uldr':
+                moveCord = parse_move(move)
+                x = moveCord[0] + box[0]
+                y = moveCord[1] + box[1]
+                wallInfo[move] = problem.map[x][y].wall
+
+            for adjMoves in ['ul', 'ld', 'dr', 'ru']:
+                if(wallInfo[adjMoves[0]] and wallInfo[adjMoves[1]]):
+                    if not (problem.map[box[0]][box[1]].target):
+                        return True
+                else:
+                    self.dead = False
+
         return self.dead
+
     def all_adj(self, problem):
         if self.all_adj_cache is None:
             succ = []
@@ -53,18 +87,25 @@ class SokobanState:
             self.all_adj_cache = succ
         return self.all_adj_cache
 
+
 class MapTile:
     def __init__(self, wall=False, floor=False, target=False):
         self.wall = wall
         self.floor = floor
         self.target = target
 
+
 def parse_move(move):
-    if move == 'u': return (-1,0)
-    elif move == 'd': return (1,0)
-    elif move == 'l': return (0,-1)
-    elif move == 'r': return (0,1)
+    if move == 'u':
+        return (-1, 0)
+    elif move == 'd':
+        return (1, 0)
+    elif move == 'l':
+        return (0, -1)
+    elif move == 'r':
+        return (0, 1)
     raise Exception('Invalid move character.')
+
 
 class DrawObj:
     WALL = '\033[37;47m \033[0m'
@@ -76,6 +117,7 @@ class DrawObj:
     UNDERLINE = '\033[4m'
     END = '\033[0m'
 
+
 class SokobanProblem(util.SearchProblem):
     # valid sokoban characters
     valid_chars = 'T#@+$*. '
@@ -83,7 +125,7 @@ class SokobanProblem(util.SearchProblem):
     def __init__(self, map, dead_detection=False, a2=False):
         self.map = [[]]
         self.dead_detection = dead_detection
-        self.init_player = (0,0)
+        self.init_player = (0, 0)
         self.init_boxes = []
         self.numboxes = 0
         self.targets = []
@@ -98,7 +140,7 @@ class SokobanProblem(util.SearchProblem):
     # Target            .
     # Floor             (space)
     def parse_map(self, input_str):
-        coordinates = lambda: (len(self.map)-1, len(self.map[-1])-1)
+        def coordinates(): return (len(self.map)-1, len(self.map[-1])-1)
         for c in input_str:
             if c == '#':
                 self.map[-1].append(MapTile(wall=True))
@@ -123,22 +165,30 @@ class SokobanProblem(util.SearchProblem):
                 self.targets.append(coordinates())
             elif c == '\n':
                 self.map.append([])
-        assert len(self.init_boxes) == len(self.targets), 'Number of boxes must match number of targets.'
+        assert len(self.init_boxes) == len(
+            self.targets), 'Number of boxes must match number of targets.'
         self.numboxes = len(self.init_boxes)
 
     def print_state(self, s):
         for row in range(len(self.map)):
             for col in range(len(self.map[row])):
                 target = self.map[row][col].target
-                box = (row,col) in s.boxes()
-                player = (row,col) == s.player()
-                if box and target: print(DrawObj.BOX_ON, end='')
-                elif player and target: print(DrawObj.PLAYER, end='')
-                elif target: print(DrawObj.TARGET, end='')
-                elif box: print(DrawObj.BOX_OFF, end='')
-                elif player: print(DrawObj.PLAYER, end='')
-                elif self.map[row][col].wall: print(DrawObj.WALL, end='')
-                else: print(DrawObj.FLOOR, end='')
+                box = (row, col) in s.boxes()
+                player = (row, col) == s.player()
+                if box and target:
+                    print(DrawObj.BOX_ON, end='')
+                elif player and target:
+                    print(DrawObj.PLAYER, end='')
+                elif target:
+                    print(DrawObj.TARGET, end='')
+                elif box:
+                    print(DrawObj.BOX_OFF, end='')
+                elif player:
+                    print(DrawObj.PLAYER, end='')
+                elif self.map[row][col].wall:
+                    print(DrawObj.WALL, end='')
+                else:
+                    print(DrawObj.FLOOR, end='')
             print()
 
     # decide if a move is valid
@@ -146,21 +196,21 @@ class SokobanProblem(util.SearchProblem):
     def valid_move(self, s, move, p=None):
         if p is None:
             p = s.player()
-        dx,dy = parse_move(move)
+        dx, dy = parse_move(move)
         x1 = p[0] + dx
         y1 = p[1] + dy
         x2 = x1 + dx
         y2 = y1 + dy
         if self.map[x1][y1].wall:
             return False, False, None
-        elif (x1,y1) in s.boxes():
-            if self.map[x2][y2].floor and (x2,y2) not in s.boxes():
-                return True, True, SokobanState((x1,y1),
-                    [b if b != (x1,y1) else (x2,y2) for b in s.boxes()])
+        elif (x1, y1) in s.boxes():
+            if self.map[x2][y2].floor and (x2, y2) not in s.boxes():
+                return True, True, SokobanState((x1, y1),
+                                                [b if b != (x1, y1) else (x2, y2) for b in s.boxes()])
             else:
                 return False, False, None
         else:
-            return True, False, SokobanState((x1,y1), s.boxes())
+            return True, False, SokobanState((x1, y1), s.boxes())
 
     ##############################################################################
     # Problem 1: Dead end detection                                              #
@@ -187,6 +237,7 @@ class SokobanProblem(util.SearchProblem):
             return []
         return s.all_adj(self)
 
+
 class SokobanProblemFaster(SokobanProblem):
     ##############################################################################
     # Problem 2: Action compression                                              #
@@ -197,20 +248,31 @@ class SokobanProblemFaster(SokobanProblem):
     # Our solution to this problem affects or adds approximately 80 lines of     #
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
-     def expand(self, s):
+    
+    # returns all possible moves of all of the boxes
+
+    def expand(self, s):
+
         succ = []
         visited = set()
         def dfsUtil(s):
             visited.add(s)
             for move in 'udlr':
                 valid, box_moved, nextS = self.valid_move(s, move)
-                if s not in visited:
-                    if valid and box_moved:
-                        succ.append((move, nextS, 1))
-                    elif valid:
-                        dfsUtil(nextS)
+                if nextS not in visited and valid:
+                    succ.append((move, nextS, 1))
+        
+        if self.dead_end(s):
+            return []
         dfsUtil(s)
+        # print('return succ', succ)
         return succ
+
+    # def expand(self, s):
+    #     if self.dead_end(s):
+    #         return []
+    #     return s.all_adj(self)
+
 
 class Heuristic:
     def __init__(self, problem):
@@ -225,7 +287,31 @@ class Heuristic:
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
     def heuristic(self, s):
-        raise NotImplementedError('Override me')
+
+        # assign boxes to targets based on the Manhattan distance
+        # |x1 − x2| + |y1 − y2|
+
+        boxes = s.boxes()
+
+        cost = 0
+        # manhattan distance matrix
+        mdist = [[-1 for _ in boxes] for _ in boxes]
+
+        for i in range(len(boxes)):
+            for j in range(len(self.problem.targets)):
+                xBox, yBox = boxes[i]
+                xTarget, yTarget = self.problem.targets[j]
+                mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
+
+        for x in mdist:
+            cost += min(x)
+            i = x.index(min(x))
+            for y in mdist:
+                # print(y)
+                y.remove(y[i])
+
+        # this is a bit odd, adding a coefficient reduces Time consumed
+        return cost * 100
 
     ##############################################################################
     # Problem 4: Better heuristic.                                               #
@@ -238,10 +324,55 @@ class Heuristic:
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
     def heuristic2(self, s):
-        raise NotImplementedError('Override me')
+        
+        # ideas:
+        # - prunes boxes on targets
+        # - add distance from box to robot (if not on target)
+        # - targets unfilled
+
+        boxes = s.boxes()
+
+        cost = 0
+        # manhattan distance matrix
+        mdist = [[-1 for _ in boxes] for _ in boxes]
+
+        for i in range(len(boxes)):
+            for j in range(len(self.problem.targets)):
+                xBox, yBox = boxes[i]
+                xTarget, yTarget = self.problem.targets[j]
+                mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
+
+        mdist2 = deepcopy(mdist)
+
+        # prunes boxes that are on targets from the cost
+        for x in mdist:
+            if min(x) == 0:
+                i = x.index(min(x))
+                for y in mdist:
+                    # print(y)
+                    y.remove(y[i])
+            else:
+                cost += 10 # ! this may need a coefficient
+                
+        for x in mdist2:
+            cost += min(x)
+            i = x.index(min(x))
+            for y in mdist2:
+                # print(y)
+                y.remove(y[i])
+
+        # for xBox, yBox in boxes:
+        #     xPlayer, yPlayer = s.player()
+        #     cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
+
+        return cost
+
+        
 
 # solve sokoban map using specified algorithm
 #  algorithm can be ucs a a2 fa fa2
+
+
 def solve_sokoban(map, algorithm='ucs', dead_detection=False):
     # problem algorithm
     if 'f' in algorithm:
@@ -250,7 +381,8 @@ def solve_sokoban(map, algorithm='ucs', dead_detection=False):
         problem = SokobanProblem(map, dead_detection, '2' in algorithm)
 
     # search algorithm
-    h = Heuristic(problem).heuristic2 if ('2' in algorithm) else Heuristic(problem).heuristic
+    h = Heuristic(problem).heuristic2 if (
+        '2' in algorithm) else Heuristic(problem).heuristic
     if 'a' in algorithm:
         search = util.AStarSearch(heuristic=h)
     else:
@@ -259,13 +391,17 @@ def solve_sokoban(map, algorithm='ucs', dead_detection=False):
     # solve problem
     search.solve(problem)
     if search.actions is not None:
-        print('length {} soln is {}'.format(len(search.actions), search.actions))
+        print('length {} soln is {}'.format(
+            len(search.actions), search.actions))
     if 'f' in algorithm:
-        raise NotImplementedError('Override me')
+        # print('search', search.totalCost, search.actions, search.numStatesExplored)
+        return search.totalCost, search.actions, search.numStatesExplored
     else:
         return search.totalCost, search.actions, search.numStatesExplored
 
 # let the user play the map
+
+
 def play_map_interactively(map, dt=0.2):
 
     problem = SokobanProblem(map)
@@ -274,7 +410,7 @@ def play_map_interactively(map, dt=0.2):
 
     seq = ""
     i = 0
-    visited=[state]
+    visited = [state]
 
     os.system(clear)
     print()
@@ -289,13 +425,14 @@ def play_map_interactively(map, dt=0.2):
                 return
 
         os.system(clear)
-        if seq!="":
-            print(seq[:i] + DrawObj.UNDERLINE + seq[i] + DrawObj.END + seq[i+1:])
+        if seq != "":
+            print(seq[:i] + DrawObj.UNDERLINE +
+                  seq[i] + DrawObj.END + seq[i+1:])
         problem.print_state(state)
 
         if seq[i] == 'q':
             return
-        elif seq[i] in ['u','d','l','r']:
+        elif seq[i] in ['u', 'd', 'l', 'r']:
             time.sleep(dt)
             valid, _, new_state = problem.valid_move(state, seq[i])
             state = new_state if valid else state
@@ -313,14 +450,17 @@ def play_map_interactively(map, dt=0.2):
             os.system(clear)
             print(seq)
             problem.print_state(state)
-            
-        if state.is_goal(problem): 
-            for _ in range(10): print('\033[30;101mWIN!!!!!\033[0m')
+
+        if state.is_goal(problem):
+            for _ in range(10):
+                print('\033[30;101mWIN!!!!!\033[0m')
             time.sleep(5)
             return
         i = i + 1
 
 # animate the sequence of actions in sokoban map
+
+
 def animate_sokoban_solution(map, seq, dt=0.2):
     problem = SokobanProblem(map)
     state = problem.start()
@@ -332,21 +472,26 @@ def animate_sokoban_solution(map, seq, dt=0.2):
         time.sleep(dt)
         valid, _, state = problem.valid_move(state, seq[i])
         if not valid:
-            raise Exception('Cannot move ' + seq[i] + ' in state ' + str(state))
+            raise Exception('Cannot move ' +
+                            seq[i] + ' in state ' + str(state))
     os.system(clear)
     print(seq)
     problem.print_state(state)
 
 # read level map from file, returns map represented as string
+
+
 def read_map_from_file(file, level):
     map = ''
     start = False
     found = False
     with open(file, 'r') as f:
         for line in f:
-            if line[0] == "'": continue
+            if line[0] == "'":
+                continue
             if line.strip().lower()[:5] == 'level':
-                if start: break
+                if start:
+                    break
                 if line.strip().lower() == 'level ' + level:
                     found = True
                     start = True
@@ -354,12 +499,15 @@ def read_map_from_file(file, level):
             if start:
                 if line[0] in SokobanProblem.valid_chars:
                     map += line
-                else: break
+                else:
+                    break
     if not found:
         raise Exception('Level ' + level + ' not found')
     return map.strip('\n')
 
 # extract all levels from file
+
+
 def extract_levels(file):
     levels = []
     with open(file, 'r') as f:
@@ -368,30 +516,37 @@ def extract_levels(file):
                 levels += [line.strip().lower()[6:]]
     return levels
 
+
 def extract_timeout(file, level):
     start = False
     found = False
     with open(file, 'r') as f:
         for line in f:
-            if line[0] == "'": continue
+            if line[0] == "'":
+                continue
             if line.strip().lower()[:5] == 'level':
-                if start: break
+                if start:
+                    break
                 if line.strip().lower() == 'level ' + level:
                     found = True
                     continue
             if found:
                 if line.strip().lower()[:7] == 'timeout':
                     return(int(line.strip().lower()[8:]))
-                else: break
+                else:
+                    break
     if not found:
         raise Exception('Level ' + level + ' not found')
     return None
 
+
 def solve_map(file, level, algorithm, dead, simulate):
     map = read_map_from_file(file, level)
     print(map)
-    if dead: print('Dead end detection on for solution of level {level}'.format(**locals()))
-    if algorithm == "me": 
+    if dead:
+        print(
+            'Dead end detection on for solution of level {level}'.format(**locals()))
+    if algorithm == "me":
         play_map_interactively(map)
     else:
         tic = datetime.datetime.now()
@@ -406,14 +561,19 @@ def solve_map(file, level, algorithm, dead, simulate):
             animate_sokoban_solution(map, seq)
         return (toc - tic).seconds + (toc - tic).microseconds/1e6
 
+
 def main():
     parser = argparse.ArgumentParser(description="Solve Sokoban map")
     parser.add_argument("level", help="Level name or 'all'")
     parser.add_argument("algorithm", help="me | ucs | [f][a[2]] | all")
-    parser.add_argument("-d", "--dead", help="Turn on dead state detection (default off)", action="store_true")
-    parser.add_argument("-s", "--simulate", help="Simulate the solution (default off)", action="store_true")
-    parser.add_argument("-f", "--file", help="File name storing the levels (levels.txt default)", default='levels.txt')
-    parser.add_argument("-t", "--timeout", help="Seconds to allow (default 300) (ignored if level specifies)", type=int, default=300)
+    parser.add_argument(
+        "-d", "--dead", help="Turn on dead state detection (default off)", action="store_true")
+    parser.add_argument(
+        "-s", "--simulate", help="Simulate the solution (default off)", action="store_true")
+    parser.add_argument(
+        "-f", "--file", help="File name storing the levels (levels.txt default)", default='levels.txt')
+    parser.add_argument(
+        "-t", "--timeout", help="Seconds to allow (default 300) (ignored if level specifies)", type=int, default=300)
 
     args = parser.parse_args()
     level = args.level
@@ -429,8 +589,9 @@ def main():
     def solve_now(): return solve_map(file, level, algorithm, dead, simulate)
 
     def solve_with_timeout(timeout):
-        level_timeout = extract_timeout(file,level)
-        if level_timeout != None: timeout = level_timeout
+        level_timeout = extract_timeout(file, level)
+        if level_timeout != None:
+            timeout = level_timeout
 
         try:
             return util.TimeoutFunction(solve_now, timeout)()
@@ -457,7 +618,8 @@ def main():
             if result != None:
                 solved += 1
                 time_used += result
-        print (f'\n\nOVERALL RESULT: {solved} levels solved out of {len(levels)} ({100.0*solved/len(levels)})% using {time_used:.3f} seconds')
+        print(
+            f'\n\nOVERALL RESULT: {solved} levels solved out of {len(levels)} ({100.0*solved/len(levels)})% using {time_used:.3f} seconds')
     elif algorithm == 'all':
         for algorithm in ['ucs', 'a', 'a2', 'f', 'fa', 'fa2']:
             print('Starting algorithm {}'.format(algorithm), file=sys.stderr)
@@ -467,6 +629,7 @@ def main():
         solve_now()
     else:
         solve_with_timeout(maxSeconds)
+
 
 if __name__ == '__main__':
     main()
