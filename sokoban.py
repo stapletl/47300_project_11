@@ -232,7 +232,19 @@ class SokobanProblemFaster(SokobanProblem):
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
     def expand(self, s):
-        raise NotImplementedError('Override me')
+        succ = []
+        visited = set()
+        def dfsUtil(s):
+            visited.add(s)
+            for move in 'udlr':
+                valid, box_moved, nextS = self.valid_move(s, move)
+                if s not in visited:
+                    if valid and box_moved:
+                        succ.append((move, nextS, 1))
+                    elif valid:
+                        dfsUtil(nextS)
+        dfsUtil(s)
+        return succ
 
 
 class Heuristic:
