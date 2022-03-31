@@ -217,26 +217,23 @@ class Heuristic:
         # assign boxes to targets based on the Manhattan distance
         # |x1 − x2| + |y1 − y2|
 
-        mdist = []
+        mdist = [[-1 for _ in s.boxes()] for _ in s.boxes()]
 
-        for box in s.boxes():
-            boxDict = {}
-            for target in self.problem.targets:
-                boxDict[target] = abs(box[0] - target[0]) + abs(box[1] - target[1])
-            mdist.append((box, boxDict))
-
-        # print('mdist', mdist)
+        for i in range(len(s.boxes())):
+            for j in range(len(self.problem.targets)):
+                xBox, yBox = s.boxes()[i]
+                xTarget, yTarget = self.problem.targets[j]
+                mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
 
         sum = 0
+        for x in mdist:
+            sum += min(x)
+            i = x.index(min(x))
+            for y in mdist:
+                #print(y)
+                y.remove(y[i])        
 
-        for dist in mdist:
-            # print('dist', dist)
-            # key = min(dist[1], key=dist[1].get)
-            sum = dist[1][min(dist[1])]
-
-        # print('sum', sum)
-
-        return sum
+        return sum * 1000
 
     ##############################################################################
     # Problem 4: Better heuristic.                                               #
