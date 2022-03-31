@@ -213,7 +213,30 @@ class Heuristic:
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
     def heuristic(self, s):
-        raise NotImplementedError('Override me')
+        
+        # assign boxes to targets based on the Manhattan distance
+        # |x1 − x2| + |y1 − y2|
+
+        mdist = []
+
+        for box in s.boxes():
+            boxDict = {}
+            for target in self.problem.targets:
+                boxDict[target] = abs(box[0] - target[0]) + abs(box[1] - target[1])
+            mdist.append((box, boxDict))
+
+        # print('mdist', mdist)
+
+        sum = 0
+
+        for dist in mdist:
+            # print('dist', dist)
+            # key = min(dist[1], key=dist[1].get)
+            sum = dist[1][min(dist[1])]
+
+        # print('sum', sum)
+
+        return sum
 
     ##############################################################################
     # Problem 4: Better heuristic.                                               #

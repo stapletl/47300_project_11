@@ -1,4 +1,5 @@
 import heapq, collections, os, signal, datetime
+import random
 
 ############################################################
 # Abstract interfaces for search problems and search algorithms.
