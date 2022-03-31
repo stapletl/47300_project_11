@@ -64,9 +64,7 @@ class SokobanState:
 
             for move in 'uldr':
                 moveCord = parse_move(move)
-                x = moveCord[0] + box[0]
-                y = moveCord[1] + box[1]
-                wallInfo[move] = problem.map[x][y].wall
+                wallInfo[move] = problem.map[moveCord[0] + box[0]][moveCord[1] + box[1]].wall
 
             for adjMoves in ['ul', 'ld', 'dr', 'ru']:
                 if(wallInfo[adjMoves[0]] and wallInfo[adjMoves[1]]):
