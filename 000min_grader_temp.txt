@@ -1,6 +1,21 @@
-
+###################
+#.$             $.#
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#           @     #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#.$             $.#
+###################
 Dead end detection on for solution of level p5-level-3
-length 0 soln is []
-Time consumed: 0.000 seconds using fa and exploring 1 states
-0 moves
-
+length 53 soln is ['r', 'r', 'r', 'd', 'd', 'd', 'd', 'd', 'd', 'r', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'r', 'u', 'l', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r']
+Time consumed: 0.043 seconds using fa and exploring 490 states
+53 moves
+rrrdd ddddr lllll lllll llllu uuuuu uuuuu urulr rrrrr rrrrr rrr

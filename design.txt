@@ -3,6 +3,8 @@
 '  that is targeted makes a big difference on this level
 
 'Level improving from ucs to ucs -d
+'This state has many dead ends on the bottom part of the maze. 
+'Dead end detection instead doesn't traverse these areas and reduces the amount of states that ucs checks. 
 Level p5-level-1
 #####
 #  @####
@@ -15,13 +17,46 @@ Level p5-level-1
 #    #
 #    #
 #    #
+#    #
 ######
 
 'Level improving from ucs -d to f -d
 Level p5-level-2
+###################
+#.$             $.#
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#           @     #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#.$             $.#
+###################
 
 'Level improving from f -d to fa -d
 Level p5-level-3
+###################
+#.$             $.#
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#       @         #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#.$             $.#
+###################
 
 'Level improving from fa -d to fa2 -d
 Level p5-level-4
