@@ -248,20 +248,30 @@ class SokobanProblemFaster(SokobanProblem):
     # Our solution to this problem affects or adds approximately 80 lines of     #
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
+    
+    # returns all possible moves of all of the boxes
+
     def expand(self, s):
+
         succ = []
         visited = set()
         def dfsUtil(s):
             visited.add(s)
             for move in 'udlr':
                 valid, box_moved, nextS = self.valid_move(s, move)
-                if s not in visited:
-                    if valid and box_moved:
-                        succ.append((move, nextS, 1))
-                    elif valid:
-                        dfsUtil(nextS)
+                if nextS not in visited and valid:
+                    succ.append((move, nextS, 1))
+        
+        if self.dead_end(s):
+            return []
         dfsUtil(s)
+        # print('return succ', succ)
         return succ
+
+    # def expand(self, s):
+    #     if self.dead_end(s):
+    #         return []
+    #     return s.all_adj(self)
 
 
 class Heuristic:
@@ -384,7 +394,8 @@ def solve_sokoban(map, algorithm='ucs', dead_detection=False):
         print('length {} soln is {}'.format(
             len(search.actions), search.actions))
     if 'f' in algorithm:
-        raise NotImplementedError('Override me')
+        # print('search', search.totalCost, search.actions, search.numStatesExplored)
+        return search.totalCost, search.actions, search.numStatesExplored
     else:
         return search.totalCost, search.actions, search.numStatesExplored
 
