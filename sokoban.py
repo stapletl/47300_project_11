@@ -309,7 +309,7 @@ class Heuristic:
                 y.remove(y[i])
 
         # this is a bit odd, adding a coefficient reduces Time consumed
-        return cost * 100
+        return cost
 
     ##############################################################################
     # Problem 4: Better heuristic.                                               #
@@ -363,7 +363,7 @@ class Heuristic:
         #     xPlayer, yPlayer = s.player()
         #     cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
 
-        return cost
+        return cost * 100
 
         
 

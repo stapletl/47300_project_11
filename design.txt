@@ -16,8 +16,6 @@ Level p5-level-1
 #    #
 #    #
 #    #
-#    #
-#    #
 ######
 
 'Level improving from ucs -d to f -d
@@ -60,6 +58,15 @@ Level p5-level-3
 
 'Level improving from fa -d to fa2 -d
 Level p5-level-4
+###################
+#.                #
+################  #
+#     $           #
+#  ################
+#    .$           #
+########## ########
+#      @          #
+###################
 
 'Optional: level for the Sokoban contest
 Level p5-contest
