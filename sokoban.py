@@ -8,6 +8,7 @@ import argparse
 import signal
 import gc
 
+from itertools import combinations
 
 class SokobanState:
     # player: 2-tuple representing player location (coordinates)
@@ -56,8 +57,24 @@ class SokobanState:
             return val
 
     def deadp(self, problem):
-        if self.dead is None:
-            raise NotImplementedError('Override me')
+        boxes = self.boxes()
+
+        for box in boxes:
+            wallInfo = {}
+
+            for move in 'uldr':
+                moveCord = parse_move(move)
+                x = moveCord[0] + box[0]
+                y = moveCord[1] + box[1]
+                wallInfo[move] = problem.map[x][y].wall
+
+            for adjMoves in ['ul', 'ld', 'dr', 'ru']:
+                if(wallInfo[adjMoves[0]] and wallInfo[adjMoves[1]]):
+                    if not (problem.map[box[0]][box[1]].target):
+                        return True
+                else:
+                    self.dead = False
+
         return self.dead
 
     def all_adj(self, problem):
