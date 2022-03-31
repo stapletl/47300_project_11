@@ -11,6 +11,10 @@ Level p5-level-1
 #  $.# #
 # #$.  #
 #    ###
+#    #
+#    #
+#    #
+#    #
 ######
 
 'Level improving from ucs -d to f -d
