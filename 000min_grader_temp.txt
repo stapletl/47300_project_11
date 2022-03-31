@@ -1,3 +1,6 @@
 
 Dead end detection on for solution of level p5-level-3
 length 0 soln is []
+Time consumed: 0.000 seconds using fa and exploring 1 states
+0 moves
+
