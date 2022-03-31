@@ -1,3 +1,4 @@
+from copy import deepcopy
 import util
 import os
 import sys
@@ -251,24 +252,27 @@ class Heuristic:
         # assign boxes to targets based on the Manhattan distance
         # |x1 − x2| + |y1 − y2|
 
-        mdist = [[-1 for _ in s.boxes()] for _ in s.boxes()]
+        boxes = s.boxes()
 
-        for i in range(len(s.boxes())):
+        cost = 0
+        # manhattan distance matrix
+        mdist = [[-1 for _ in boxes] for _ in boxes]
+
+        for i in range(len(boxes)):
             for j in range(len(self.problem.targets)):
-                xBox, yBox = s.boxes()[i]
+                xBox, yBox = boxes[i]
                 xTarget, yTarget = self.problem.targets[j]
                 mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
 
-        sum = 0
         for x in mdist:
-            sum += min(x)
+            cost += min(x)
             i = x.index(min(x))
             for y in mdist:
                 # print(y)
                 y.remove(y[i])
 
         # this is a bit odd, adding a coefficient reduces Time consumed
-        return sum * 100
+        return cost * 100
 
     ##############################################################################
     # Problem 4: Better heuristic.                                               #
@@ -281,7 +285,50 @@ class Heuristic:
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
     def heuristic2(self, s):
-        raise NotImplementedError('Override me')
+        
+        # ideas:
+        # - prunes boxes on targets
+        # - add distance from box to robot (if not on target)
+        # - targets unfilled
+
+        boxes = s.boxes()
+
+        cost = 0
+        # manhattan distance matrix
+        mdist = [[-1 for _ in boxes] for _ in boxes]
+
+        for i in range(len(boxes)):
+            for j in range(len(self.problem.targets)):
+                xBox, yBox = boxes[i]
+                xTarget, yTarget = self.problem.targets[j]
+                mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
+
+        mdist2 = deepcopy(mdist)
+
+        # prunes boxes that are on targets from the cost
+        for x in mdist:
+            if min(x) == 0:
+                i = x.index(min(x))
+                for y in mdist:
+                    # print(y)
+                    y.remove(y[i])
+            else:
+                cost += 10 # ! this may need a coefficient
+                
+        for x in mdist2:
+            cost += min(x)
+            i = x.index(min(x))
+            for y in mdist2:
+                # print(y)
+                y.remove(y[i])
+
+        # for xBox, yBox in boxes:
+        #     xPlayer, yPlayer = s.player()
+        #     cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
+
+        return cost
+
+        
 
 # solve sokoban map using specified algorithm
 #  algorithm can be ucs a a2 fa fa2
