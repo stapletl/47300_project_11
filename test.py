@@ -1,3 +1,9 @@
+z = 'level p5-level-4'
+
+print(z.strip().lower()[:5])
+print(z.strip().lower()[6:])
+
+
 boxes = [(1, 1), (5, 5), (7,7)]
 targets = [(2, 2), (3, 4), (4,6)]
 

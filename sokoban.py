@@ -334,13 +334,13 @@ class Heuristic:
         # manhattan distance matrix
         mdist = [[-1 for _ in boxes] for _ in boxes]
 
+        xPlayer, yPlayer = s.player()
         for i in range(len(boxes)):
+            xBox, yBox = boxes[i]
+            cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
             for j in range(len(self.problem.targets)):
-                xBox, yBox = boxes[i]
                 xTarget, yTarget = self.problem.targets[j]
                 mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
-
-        mdist2 = deepcopy(mdist)
 
         # prunes boxes that are on targets from the cost
         for x in mdist:
@@ -352,16 +352,14 @@ class Heuristic:
             else:
                 cost += 10 # ! this may need a coefficient
                 
-        for x in mdist2:
+        for x in mdist:
+            if len(x) < 1:
+                break;
             cost += min(x)
             i = x.index(min(x))
-            for y in mdist2:
+            for y in mdist:
                 # print(y)
                 y.remove(y[i])
-
-        # for xBox, yBox in boxes:
-        #     xPlayer, yPlayer = s.player()
-        #     cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
 
         return cost * 100
 
