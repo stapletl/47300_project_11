@@ -1,4 +1,9 @@
-from copy import deepcopy
+# We are pruning duplicate states with faster problem class (Action Compression)
+# We are stopping the exploration of dead end states
+# The A* basic admissible heuristic guarantees optimality and promotes the search to converge faster
+# The A* non-basic search is not admissible and doesn't guarantee optimality but instead promotes
+# fast convergence to a solution
+
 import util
 import os
 import sys
@@ -253,7 +258,7 @@ class SokobanProblemFaster(SokobanProblem):
 
         succ = []
         visited = set()
-        def dfsUtil(s):
+        def getMoves(s):
             visited.add(s)
             for move in 'udlr':
                 valid, box_moved, nextS = self.valid_move(s, move)
@@ -262,7 +267,7 @@ class SokobanProblemFaster(SokobanProblem):
         
         if self.dead_end(s):
             return []
-        dfsUtil(s)
+        getMoves(s)
         # print('return succ', succ)
         return succ
 
@@ -308,7 +313,6 @@ class Heuristic:
                 # print(y)
                 y.remove(y[i])
 
-        # this is a bit odd, adding a coefficient reduces Time consumed
         return cost
 
     ##############################################################################

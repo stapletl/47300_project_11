@@ -43,8 +43,9 @@ Level p5-level-2
 
 
 'Level improving from f -d to fa -d
-'This gets vastly improved by the heuristic since the
-'heuristic wants to minimize distance between boxes and targets'
+'The performance on this level is improved by the heuristic since the
+'heuristic wants to minimize distance between boxes and targets it spends
+'much less time wandering around miscellaneous states
 Level p5-level-3
 ###################
 #.$             $.#
@@ -69,6 +70,7 @@ Level p5-level-3
 'and stresses finding a solution fast instead of finding
 'the most optimal solution. This map allows for that to 
 'be apparent as it finds a non-optimal solution quickly
+'This heuristic further promotes actions such as pushing boxes
 level p5-level-4
 ###################
 #.          $    .#
