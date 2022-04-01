@@ -1,6 +1,6 @@
 ###################
-#.$             $.#
-#                 #
+#.          $    .#
+#    $            #
 #                 #
 #                 #
 #                 #
@@ -14,8 +14,8 @@
 #                 #
 #.$             $.#
 ###################
-Dead end detection on for solution of level p5-level-3
-length 55 soln is ['l', 'l', 'l', 'l', 'l', 'd', 'd', 'd', 'd', 'd', 'd', 'l', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'l', 'u', 'r', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l']
-Time consumed: 3.752 seconds using fa and exploring 40992 states
-55 moves
-lllll ddddd dlrrr rrrrr rrrrr ruuuu uuuuu uuulu rllll lllll lllll
+Dead end detection on for solution of level p5-level-4
+length 115 soln is ['u', 'u', 'u', 'u', 'u', 'l', 'l', 'l', 'u', 'r', 'u', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'd', 'r', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'r', 'l', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'l', 'u', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'l', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'r', 'u', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'r', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l', 'l']
+Time consumed: 0.256 seconds using fa2 and exploring 3947 states
+115 moves
+uuuuu lllur urrrr rrrrd rdddd ddddd dddrl uuuuu uuuuu uulul lllll lllll ddddd ddddd dddlu uuuuu uuuuu ururr rrrrr rrrrr rllll lllll lllll

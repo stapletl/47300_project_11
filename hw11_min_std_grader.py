@@ -66,7 +66,7 @@ def grader_helper(level, mode_1, mode_2, solution_code, level_file):
 # compare performance with "ucs" and "ucs -d", require 0.7 time reduction factor 
 # (or timeout on first) 
 # Likewise for other problems
-config = {"p1": (0.7, ("ucs","ucs -d")), "p2": (0.7, ("ucs -d","f -d")), "p3" : (0.7, ("f -d","fa -d"))}
+config = {"p1": (0.7, ("ucs","ucs -d")), "p2": (0.7, ("ucs -d","f -d")), "p3" : (0.7, ("f -d","fa -d")), "p4" : (0.7, ("fa -d","fa2 -d"))}
 # no longer included: "p4": (0.7, ("fa -d", "fa2 -d"))
 
 def main():
@@ -85,6 +85,9 @@ def main():
 
     score = 0
     results = {}
+
+    print('levels', levels)
+
     for level in levels:
         type = level[0:2]
         if type=="p5": type = "p"+level[-1]

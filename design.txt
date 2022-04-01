@@ -2,8 +2,9 @@
 'Include a brief explanation to each level why the algorithmic improvement
 '  that is targeted makes a big difference on this level
 
+
 'Level improving from ucs to ucs -d
-'This state has many dead ends on the bottom part of the maze. 
+'This level has many dead ends on the bottom part of the maze. 
 'Dead end detection instead doesn't traverse these areas and reduces the amount of states that ucs checks. 
 Level p5-level-1
 #####
@@ -18,10 +19,13 @@ Level p5-level-1
 #    #
 ######
 
+
 'Level improving from ucs -d to f -d
+'This level has little to no dead ends and with a large space
+'it has a high chance of repeated states that will get pruned.
 Level p5-level-2
 ###################
-#.$             $.#
+#. $              #
 #                 #
 #                 #
 #                 #
@@ -33,12 +37,15 @@ Level p5-level-2
 #                 #
 #                 #
 #                 #
-#                 #
-#.$             $.#
+#  $              #
+#                .#
 ###################
 
 
 'Level improving from f -d to fa -d
+'The performance on this level is improved by the heuristic since the
+'heuristic wants to minimize distance between boxes and targets it spends
+'much less time wandering around miscellaneous states
 Level p5-level-3
 ###################
 #.$             $.#
@@ -57,16 +64,29 @@ Level p5-level-3
 #.$             $.#
 ###################
 
+
 'Level improving from fa -d to fa2 -d
-Level p5-level-4
+'Between heuristic 1 and 2 the second uses more data
+'and stresses finding a solution fast instead of finding
+'the most optimal solution. This map allows for that to 
+'be apparent as it finds a non-optimal solution quickly
+'This heuristic further promotes actions such as pushing boxes
+level p5-level-4
 ###################
-#.                #
-################  #
-#     $           #
-#  ################
-#    .$           #
-########## ########
-#      @          #
+#.          $    .#
+#    $            #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#       @         #
+#                 #
+#                 #
+#                 #
+#                 #
+#                 #
+#.$             $.#
 ###################
 
 'Optional: level for the Sokoban contest

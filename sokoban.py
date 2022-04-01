@@ -1,4 +1,9 @@
-from copy import deepcopy
+# We are pruning duplicate states with faster problem class (Action Compression)
+# We are stopping the exploration of dead end states
+# The A* basic admissible heuristic guarantees optimality and promotes the search to converge faster
+# The A* non-basic search is not admissible and doesn't guarantee optimality but instead promotes
+# fast convergence to a solution
+
 import util
 import os
 import sys
@@ -253,7 +258,7 @@ class SokobanProblemFaster(SokobanProblem):
 
         succ = []
         visited = set()
-        def dfsUtil(s):
+        def getMoves(s):
             visited.add(s)
             for move in 'udlr':
                 valid, box_moved, nextS = self.valid_move(s, move)
@@ -262,7 +267,7 @@ class SokobanProblemFaster(SokobanProblem):
         
         if self.dead_end(s):
             return []
-        dfsUtil(s)
+        getMoves(s)
         # print('return succ', succ)
         return succ
 
@@ -308,7 +313,6 @@ class Heuristic:
                 # print(y)
                 y.remove(y[i])
 
-        # this is a bit odd, adding a coefficient reduces Time consumed
         return cost
 
     ##############################################################################
@@ -334,13 +338,13 @@ class Heuristic:
         # manhattan distance matrix
         mdist = [[-1 for _ in boxes] for _ in boxes]
 
+        xPlayer, yPlayer = s.player()
         for i in range(len(boxes)):
+            xBox, yBox = boxes[i]
+            cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
             for j in range(len(self.problem.targets)):
-                xBox, yBox = boxes[i]
                 xTarget, yTarget = self.problem.targets[j]
                 mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
-
-        mdist2 = deepcopy(mdist)
 
         # prunes boxes that are on targets from the cost
         for x in mdist:
@@ -352,16 +356,14 @@ class Heuristic:
             else:
                 cost += 10 # ! this may need a coefficient
                 
-        for x in mdist2:
+        for x in mdist:
+            if len(x) < 1:
+                break;
             cost += min(x)
             i = x.index(min(x))
-            for y in mdist2:
+            for y in mdist:
                 # print(y)
                 y.remove(y[i])
-
-        # for xBox, yBox in boxes:
-        #     xPlayer, yPlayer = s.player()
-        #     cost += abs(xBox - xPlayer) + abs(yBox - yPlayer)
 
         return cost * 100
 
