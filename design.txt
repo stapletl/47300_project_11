@@ -73,8 +73,8 @@ Level p5-level-3
 'This heuristic further promotes actions such as pushing boxes
 level p5-level-4
 ###################
-#.          $    .#
-#    $            #
+#.  #         #  .#
+#   #$      $     #
 #                 #
 #                 #
 #                 #
