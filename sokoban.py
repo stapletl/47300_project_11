@@ -1,6 +1,11 @@
 # We are pruning duplicate states with faster problem class (Action Compression)
-# We are stopping the exploration of dead end states
+# 
+# To reduce dead state exploration we recusively search backwards from the targets to find all
+# map positions that the box could originate from to reach each target. All boxes that are
+# left untouched by this dfs search are dead states (all floor tiles dead by default)
+#
 # The A* basic admissible heuristic guarantees optimality and promotes the search to converge faster
+#
 # The A* non-basic search is not admissible and doesn't guarantee optimality but instead promotes
 # fast convergence to a solution
 
@@ -14,6 +19,7 @@ import signal
 import gc
 
 from itertools import combinations
+
 
 class SokobanState:
     # player: 2-tuple representing player location (coordinates)
@@ -69,14 +75,15 @@ class SokobanState:
 
             for move in 'uldr':
                 moveCord = parse_move(move)
-                wallInfo[move] = problem.map[moveCord[0] + box[0]][moveCord[1] + box[1]].wall
+                wallInfo[move] = problem.map[moveCord[0] +
+                                             box[0]][moveCord[1] + box[1]].wall
 
             for adjMoves in ['ul', 'ld', 'dr', 'ru']:
                 if(wallInfo[adjMoves[0]] and wallInfo[adjMoves[1]]):
                     if not (problem.map[box[0]][box[1]].target):
-                        return True
+                        return True, box[0], box[1]
                 else:
-                    self.dead = False
+                    self.dead = False, None, None
 
         return self.dead
 
@@ -92,10 +99,21 @@ class SokobanState:
 
 
 class MapTile:
-    def __init__(self, wall=False, floor=False, target=False):
+    def __init__(self, wall=False, floor=False, target=False, dead=False):
         self.wall = wall
         self.floor = floor
         self.target = target
+        self.dead = dead
+
+    def __str__(self):
+        if self.wall:
+            return "#"
+        if self.target:
+            return "."
+        if self.dead:
+            return "0"
+        if self.floor:
+            return " "
 
 
 def parse_move(move):
@@ -127,12 +145,73 @@ class SokobanProblem(util.SearchProblem):
 
     def __init__(self, map, dead_detection=False, a2=False):
         self.map = [[]]
+        self.temp_map = [[]]
         self.dead_detection = dead_detection
         self.init_player = (0, 0)
         self.init_boxes = []
         self.numboxes = 0
         self.targets = []
+        self.visited = set()
         self.parse_map(map)
+        self.gen_d_map()
+
+        # for x in self.map:
+        #     for y in x:
+        #         print(y, end='')
+        #     print('')
+
+    def gen_d_map(self):
+        dim = 0
+        for x in self.temp_map:
+            if len(x) > dim:
+                dim = len(x)
+
+        # print('dim', dim)
+
+        self.map.insert(0, [MapTile(wall=True) for _ in range(dim + 1)])
+        self.map.append([MapTile(wall=True) for _ in range(dim + 1)])
+        for x in self.map:
+            x.insert(0, MapTile(wall=True))
+            while len(x) < dim + 2:
+                x.append(MapTile(wall=True))
+            # print(x)
+
+        def dfs(xT, yT, visited):
+
+            test1 = {}
+            test2 = {}
+
+            for move in 'udlr':
+                x, y = parse_move(move)
+                if (xT, yT, x + xT, y + yT) not in visited:
+
+                    # print(f'testing ({xT},{yT}) to ({x + xT},{y + yT})')
+                    test1[move] = self.map[x + xT][y + yT].floor
+                    test2[move] = self.map[x*2 + xT][y*2 + yT].floor
+
+                    visited[(xT, yT, x + xT, y + yT)] = True # visited (from, to)
+                    # if you can get to it go next 
+                    if test1[move] and test2[move]:
+                        self.map[x + xT][y + yT].dead = False
+                        # print(f'({x + xT},{y + yT}) is not dead')
+                        dfs(x + xT, y + yT, visited)
+
+
+
+        # for x in self.map:
+        #     for y in x:
+        #         print(y, end='')
+        #     print('')
+
+        for target in self.targets:
+            xT, yT = target[0] + 1, target[1] + 1
+            dfs(xT, yT, {}) #visited initially emtpy
+
+        self.map.pop(0)
+        self.map.pop(-1)
+        for x in self.map:
+            x.pop(0)
+            x.pop(-1)
 
     # parse the input string into game map
     # Wall              #
@@ -142,32 +221,42 @@ class SokobanProblem(util.SearchProblem):
     # Box on target     *
     # Target            .
     # Floor             (space)
+
     def parse_map(self, input_str):
         def coordinates(): return (len(self.map)-1, len(self.map[-1])-1)
         for c in input_str:
             if c == '#':
                 self.map[-1].append(MapTile(wall=True))
+                self.temp_map[-1].append(1)
             elif c == ' ':
-                self.map[-1].append(MapTile(floor=True))
+                self.map[-1].append(MapTile(floor=True, dead=True))
+                self.temp_map[-1].append(0)
             elif c == '@':
-                self.map[-1].append(MapTile(floor=True))
+                self.map[-1].append(MapTile(floor=True, dead=True))
                 self.init_player = coordinates()
+                self.temp_map[-1].append(0)
             elif c == '+':
                 self.map[-1].append(MapTile(floor=True, target=True))
                 self.init_player = coordinates()
                 self.targets.append(coordinates())
+                self.temp_map[-1].append(0)
             elif c == '$':
                 self.map[-1].append(MapTile(floor=True))
                 self.init_boxes.append(coordinates())
+                self.temp_map[-1].append(0)
             elif c == '*':
                 self.map[-1].append(MapTile(floor=True, target=True))
                 self.init_boxes.append(coordinates())
                 self.targets.append(coordinates())
+                self.temp_map[-1].append(0)
             elif c == '.':
                 self.map[-1].append(MapTile(floor=True, target=True))
                 self.targets.append(coordinates())
+                self.temp_map[-1].append(9)
             elif c == '\n':
                 self.map.append([])
+                self.temp_map.append([])
+
         assert len(self.init_boxes) == len(
             self.targets), 'Number of boxes must match number of targets.'
         self.numboxes = len(self.init_boxes)
@@ -223,11 +312,19 @@ class SokobanProblem(util.SearchProblem):
     # Our solution to this problem affects or adds approximately 50 lines of     #
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
+    def init_dead_dict(self):
+        return 1
+
     # detect dead end
     def dead_end(self, s):
         if not self.dead_detection:
             return False
-        return s.deadp(self)
+
+        for xBox, yBox in s.boxes():
+            if self.map[xBox][yBox].dead:
+                return True
+
+        return False
 
     def start(self):
         return SokobanState(self.init_player, self.init_boxes)
@@ -251,20 +348,21 @@ class SokobanProblemFaster(SokobanProblem):
     # Our solution to this problem affects or adds approximately 80 lines of     #
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
-    
+
     # returns all possible moves of all of the boxes
 
     def expand(self, s):
 
         succ = []
-        visited = set()
+
+
         def getMoves(s):
-            visited.add(s)
+            self.visited.add(s)
             for move in 'udlr':
                 valid, box_moved, nextS = self.valid_move(s, move)
-                if nextS not in visited and valid:
+                if nextS not in self.visited and valid:
                     succ.append((move, nextS, 1))
-        
+
         if self.dead_end(s):
             return []
         getMoves(s)
@@ -326,7 +424,7 @@ class Heuristic:
     # code in the file in total. Your can vary substantially from this.          #
     ##############################################################################
     def heuristic2(self, s):
-        
+
         # ideas:
         # - prunes boxes on targets
         # - add distance from box to robot (if not on target)
@@ -354,11 +452,11 @@ class Heuristic:
                     # print(y)
                     y.remove(y[i])
             else:
-                cost += 10 # ! this may need a coefficient
-                
+                cost += 10  # ! this may need a coefficient
+
         for x in mdist:
             if len(x) < 1:
-                break;
+                break
             cost += min(x)
             i = x.index(min(x))
             for y in mdist:
@@ -367,7 +465,6 @@ class Heuristic:
 
         return cost * 100
 
-        
 
 # solve sokoban map using specified algorithm
 #  algorithm can be ucs a a2 fa fa2
