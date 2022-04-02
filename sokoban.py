@@ -17,9 +17,9 @@ import time
 import argparse
 import signal
 import gc
-
 from itertools import combinations
 
+sys.setrecursionlimit(1500)
 
 class SokobanState:
     # player: 2-tuple representing player location (coordinates)
