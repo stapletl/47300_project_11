@@ -403,15 +403,20 @@ class Heuristic:
                 xBox, yBox = boxes[i]
                 xTarget, yTarget = self.problem.targets[j]
                 mdist[i][j] = abs(xBox - xTarget) + abs(yBox - yTarget)
+            cost += min(mdist[i])
 
-        for x in mdist:
-            cost += min(x)
-            i = x.index(min(x))
-            for y in mdist:
-                # print(y)
-                y.remove(y[i])
+        # for x in mdist:
+        #     cost += min(x)
+        #     i = x.index(min(x))
+        #     for y in mdist:
+        #         # print(y)
+        #         y.remove(y[i])
 
-        return cost
+        return cost * 2
+
+
+
+
 
     ##############################################################################
     # Problem 4: Better heuristic.                                               #
